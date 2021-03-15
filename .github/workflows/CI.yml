@@ -59,6 +59,19 @@ jobs:
         run: |
           ./vendor/bin/phpstan analyse --ansi
 
+  markdown:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   php_7_4_mysql_5_6:
     name: PHP7.4+MySQL5.6
     runs-on: ubuntu-latest
