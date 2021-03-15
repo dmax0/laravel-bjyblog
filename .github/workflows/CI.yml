@@ -59,6 +59,14 @@ jobs:
         run: |
           ./vendor/bin/phpstan analyse --ansi
 
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Lint changelog file
+        uses: avto-dev/markdown-lint@v1
   php_7_4_mysql_5_6:
     name: PHP7.4+MySQL5.6
     runs-on: ubuntu-latest
