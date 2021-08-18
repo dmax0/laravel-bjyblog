@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'laravel-bjyblog'),
+    'name' => env('APP_NAME', 'DMAXBlog'),
 
     /*
     |--------------------------------------------------------------------------

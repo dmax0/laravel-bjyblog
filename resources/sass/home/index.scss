@@ -469,6 +469,8 @@ a {
 
 /* 通用右侧结束 */
 
+
+
 /* 主体部分开始 */
 #b-content {
     position: relative;
@@ -477,6 +479,7 @@ a {
         padding: 0;
         .breadcrumb {
             background-color: #fff;
+
         }
     }
 
@@ -502,9 +505,10 @@ a {
         margin-bottom: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
-        background: #fff;
+        background: #ffffff;
         box-shadow: 0px 1px 2px 0px #E2E2E2;
         position: relative;
+
 
         .b-oa-title {
             position: relative;
@@ -1553,7 +1557,7 @@ a {
     padding: 40px 0;
     position: relative;
     z-index: 2;
-    background: #333;
+    background: #fff;
     color: #9d9d9d;
 
     dl {

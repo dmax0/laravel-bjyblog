@@ -52,6 +52,7 @@ require('./home/site');
 
 require('./home/like');
 
+require('./home/bg.js')
 // JsSocials : recompile with "npm run dev" or yarn...
 require('jssocials/dist/jssocials.min');
 

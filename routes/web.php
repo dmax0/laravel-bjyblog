@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // Home 模块
+
 Route::name('home.')->group(function () {
     Route::name('article.')->group(function () {
         Route::get('/', \App\Http\Controllers\Home\ArticleController::class . '@index')->name('index');

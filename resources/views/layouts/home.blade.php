@@ -12,6 +12,8 @@
     @yield('css')
 </head>
 <body>
+<canvas id='bg' height="1080" width="1920"
+        style="position:fixed;z-index:-2;filter: alpha(opacity:50);opacity: 0.9"></canvas>
 <header id="b-public-nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -65,7 +67,7 @@
                 @else
                     <li class="b-nav-cname b-nav-login">
                         <div class="hidden-xs b-login-mobile"></div>
-                        <a class="js-login-btn" href="javascript:;">{{ translate('Sign In') }}</a>
+                        <a class="js-login-btn" href="javascript:void(0)">{{ translate('Sign In') }}</a>
                     </li>
                 @endif
             </ul>
@@ -85,32 +87,17 @@
                     <input class="b-search-submit" type="submit" value="{{ translate('Search') }}">
                 </form>
             </div>
-            @if(!empty(config('bjyblog.qq_qun.number')) && config('app.locale') === 'zh-CN')
-                <div class="b-qun">
-                    <h4 class="b-title">加入组织</h4>
-                    <ul class="b-all-tname">
-                        <li class="b-qun-or-code">
-                            <img src="{{ asset(config('bjyblog.qq_qun.or_code')) }}" alt="QQ">
-                        </li>
-                        <li class="b-qun-word">
-                            <p class="b-qun-nuber">
-                                1. 手Q扫左侧二维码
-                            </p>
-                            <p class="b-qun-nuber">
-                                2. 搜Q群：{{ config('bjyblog.qq_qun.number') }}
-                            </p>
-                            <p class="b-qun-code">
-                                3. 点击{!! config('bjyblog.qq_qun.code') !!}
-                            </p>
-                            <p class="b-qun-article">
-                                @if(!empty($qq_qun_article['id']))
-                                    <a href="{{ url('article', [$qq_qun_article['id']]) }}" target="{{ config('bjyblog.link_target') }}">{{ $qq_qun_article['title'] }}</a>
-                                @endif
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            @endif
+
+            <div class="b-qun">
+                <dl class="col-xs-10 col-sm-6 col-md-{{ $home_foot_col_number }} col-lg-{{ $home_foot_col_number }}">
+                    <dt>{{ translate('Counts') }}</dt>
+                    <dd>{{ translate('Article Counts') }}：{{ $article_count }}</dd>
+                    <dd>{{ translate('Comment Counts') }}：{{ $comment_count }}</dd>
+                    <dd>{{ translate('User Counts') }}：{{ $socialite_user_count }}</dd>
+                    <dd>{{ translate('Note Counts') }}：{{ $chat_count }}</dd>
+                </dl>
+            </div>
+
             <div class="b-tags">
                 <h4 class="b-title">{{ translate('Hot Tags') }}</h4>
                 <ul class="b-all-tname">
@@ -154,61 +141,25 @@
                     @foreach($friend as $v)
                         <a class="b-link-a" href="{{ $v->url }}" target="{{ config('bjyblog.link_target') }}"><span class="fa fa-link b-black"></span> {{ $v->name }}</a>
                     @endforeach
-                        <a class="b-link-a" href="{{ url('site') }}"><span class="fa fa-link b-black"></span> {{ translate('More') }} </a>
+                    <a class="b-link-a" href="{{ url('site') }}"><span class="fa fa-link b-black"></span> {{ translate('More') }} </a>
                 </p>
             </div>
         </div>
     </div>
 </div>
 
+
 <footer id="b-foot">
     <div class="container">
-        <div class="row b-content">
-            <dl class="col-xs-12 col-sm-6 col-md-{{ $home_foot_col_number }} col-lg-{{ $home_foot_col_number }}">
-                <dt>{{ translate('Rights') }}</dt>
-                <dd>{{ translate('Licenses') }}：<a rel="nofollow" href="https://creativecommons.org/licenses/by{{ config('bjyblog.licenses.allow_commercial') . config('bjyblog.licenses.allow_adaptation') }}/4.0/deed.{{ config('bjyblog.licenses.language') }}" target="{{ config('bjyblog.link_target') }}">CC BY-NC 4.0</a></dd>
-                <dd>{{ translate('Copyright') }}：© 2014-{{ date('Y') }}</dd>
-                @if(!empty(config('bjyblog.admin_email')))
-                    <dd>{{ translate('Contact Email') }}：<a href="mailto:{!! config('bjyblog.admin_email') !!}">{!! config('bjyblog.admin_email') !!}</a></dd>
-                @endif
-                @if(!empty(config('bjyblog.icp')) && config('app.locale') === 'zh-CN')
-                    <dd>{{ translate('ICP') }}：<a rel="nofollow" href="http://www.beian.miit.gov.cn" target="{{ config('bjyblog.link_target') }}">{{ config('bjyblog.icp') }}</a></dd>
-                @endif
-            </dl>
+        <div class="text-center text-capitalize">
 
-            <dl class="col-xs-12 col-sm-6 col-md-{{ $home_foot_col_number }} col-lg-{{ $home_foot_col_number }}">
-                <dt>{{ translate('Structure') }}</dt>
-                <dd>{{ translate('Project Name') }}：<a rel="nofollow" href="https://github.com/baijunyao/laravel-bjyblog" target="{{ config('bjyblog.link_target') }}">laravel-bjyblog</a></dd>
-                <dd>{{ translate('Blog Version') }}：<a rel="nofollow" href="https://github.com/baijunyao/laravel-bjyblog" target="{{ config('bjyblog.link_target') }}">{{ config('bjyblog.version') }}-{{ config('bjyblog.branch') }}</a></dd>
-                <dd>{{ translate('Framework Version') }}：<a rel="nofollow"  href="https://github.com/laravel/framework" target="{{ config('bjyblog.link_target') }}">laravel-v{{ \Illuminate\Foundation\Application::VERSION }}</a></dd>
-                <dd>{{ translate('Project Author') }}：<a href="https://baijunyao.com">{{ translate('Junyao Bai') }}</a></dd>
-                <dd>{{ translate('Theme Name') }}：<a rel="nofollow" href="https://github.com/baijunyao/blog-theme-blueberry">blog-theme-blueberry</a></dd>
-                <dd>{{ translate('Theme Author') }}：<a href="https://baijunyao.com">{{ translate('Junyao Bai') }}</a></dd>
-            </dl>
-
-            <dl class="col-xs-12 col-sm-6 col-md-{{ $home_foot_col_number }} col-lg-{{ $home_foot_col_number }}">
-                <dt>{{ translate('Counts') }}</dt>
-                <dd>{{ translate('Article Counts') }}：{{ $article_count }}</dd>
-                <dd>{{ translate('Comment Counts') }}：{{ $comment_count }}</dd>
-                <dd>{{ translate('User Counts') }}：{{ $socialite_user_count }}</dd>
-                <dd>{{ translate('Note Counts') }}：{{ $chat_count }}</dd>
-            </dl>
-
-            @if($home_foot_col_number === 3)
-                <dl class="col-xs-12 col-sm-12 col-md-{{ $home_foot_col_number }} col-lg-{{ $home_foot_col_number }} b-social">
-                    <dt>{{ translate('Social') }}</dt>
-                    <dd class="b-small-logo">
-                        @foreach(config('bjyblog.social_links') as $name => $link)
-                            @if($link !== '')
-                                <a rel="nofollow" href="{{ $link }}" target="{{ config('bjyblog.link_target') }}"><img src="{{ url("images/home/social-$name.png") }}" alt="{{ $name }}"></a>
-                            @endif
-                        @endforeach
-                    </dd>
-                </dl>
-            @endif
+            <span>本博客使用免费开源的</span>
+            <span><a href="https://github.com/baijunyao/laravel-bjyblog">laravel-bjyblog</a></span>
+           <span>搭建</span>{{(" ")}}|{{(" ")}}<span>© 2021 版权所有</span>
+           {{(" ")}}|{{(" ")}}<span>ICP证：</span><a  href="https://beian.miit.gov.cn" target="{{ config('bjyblog.link_target') }}">{{ config('bjyblog.icp') }}</a>
         </div>
     </div>
-    <a class="go-top fa fa-angle-up animated jello" href="javascript:;"></a>
+    <a class="go-top fa fa-angle-up animated jello" href="javascript:void(0)"></a>
 </footer>
 
 <div class="modal fade" id="b-modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -233,7 +184,7 @@
     </div>
 </div>
 <script>
-    // 定义评论url
+
     ajaxCommentUrl = "{{ url('comment') }}";
     ajaxLikeUrl = "{{ url('like/store') }}";
     ajaxUnLikeUrl = "{{ url('like/destroy') }}";
