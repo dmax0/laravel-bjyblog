@@ -41538,13 +41538,14 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var canvas = document.getElementById('bg');
-var ctx = canvas.getContext('2d');
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-var texts = "loveαβγδεζηθxικyλμνdξοπρστυφχψω∷wnq∫∮∝∞∧∨h∑∏∪∩∈∵∴⊥‖∠⌒⊙≌√p".split('');
-var fontSize = 16;
-var columns = canvas.width / fontSize;
+var c = document.getElementById("c");
+var ctx = c.getContext("2d");
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+var txts = "loveαβγδεζηθxικyλμνdξοπρστυφχψω∷wnq∫∮∝∞∧∨h∑∏∪∩∈∵∴⊥‖∠⌒⊙≌√p";
+txts = txts.split("");
+var font_size = 12;
+var columns = c.width / font_size;
 var drops = [];
 
 for (var x = 0; x < columns; x++) {
@@ -41552,24 +41553,20 @@ for (var x = 0; x < columns; x++) {
 }
 
 function draw() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#0F0';
-  ctx.font = fontSize + 'px arial';
+  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+  ctx.fillRect(0, 0, c.width, c.height);
+  ctx.fillStyle = "#490";
+  ctx.font = font_size + "px arial";
 
   for (var i = 0; i < drops.length; i++) {
-    var text = texts[Math.floor(Math.random() * texts.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-    if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
-      drops[i] = 0;
-    }
-
+    var text = txts[Math.floor(Math.random() * txts.length)];
+    ctx.fillText(text, i * font_size, drops[i] * font_size);
+    if (drops[i] * font_size > c.height || Math.random() > 0.98) drops[i] = 0;
     drops[i]++;
   }
 }
 
-setInterval(draw, 33);
+setInterval(draw, 20);
 
 /***/ }),
 
@@ -42089,9 +42086,9 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\blog\laravel-blog\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! F:\blog\laravel-blog\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! F:\blog\laravel-blog\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! F:\blog\laravel-bjyblog\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! F:\blog\laravel-bjyblog\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! F:\blog\laravel-bjyblog\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })

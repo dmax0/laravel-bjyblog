@@ -12,7 +12,7 @@
     @yield('css')
 </head>
 <body>
-<canvas id='bg' height="1080" width="1920"
+<canvas id='c' height="1080" width="1920"
         style="position:fixed;z-index:-2;filter: alpha(opacity:50);opacity: 0.9"></canvas>
 <header id="b-public-nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
